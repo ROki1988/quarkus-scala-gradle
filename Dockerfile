@@ -20,12 +20,10 @@ RUN ./gradlew && \
     ./gradlew --stacktrace buildNative --docker-build=false
 
 ############# RUN STEP #############
-FROM debian:jessie-slim
+FROM alpine:latest
 
 COPY --from=builder /tmp/ssl-libs/ /opt/
 COPY --from=builder /src/build/quarkus-scala-gradle-0.0.1-SNAPSHOT-runner /application
 
 ENTRYPOINT /application \
-    -Djava.library.path=/opt/lib \
-    -Djavax.net.ssl.trustStore=/opt/cacerts \
     -XmX64m

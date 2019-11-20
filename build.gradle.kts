@@ -7,12 +7,18 @@ plugins {
     id("io.quarkus") version("0.23.1")
 }
 
+tasks {
+   buildNative {
+       additionalBuildArgs = listOf("--static", "-O3")
+   }
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.scala-lang:scala-library:2.12.8")
+    implementation("org.scala-lang:scala-library:2.13.1")
 
     // Quarkus
     implementation(enforcedPlatform("io.quarkus:quarkus-bom:0.23.1"))
